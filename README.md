@@ -33,7 +33,7 @@ COGS is a very lightweight framework imported from the Unity Package Manager.
 
 ### Requirements
 
-COGS requires **Unity 2018.4** **or newer**.
+COGS requires **Unity 2020.2** **or newer**.
 
 ### Installing
 
@@ -1026,9 +1026,7 @@ All NPC would have to implement is the members needed by the IInteractable compo
 
 The COGS package comes bundled with optional commented examples.
 
-If you're using Unity 2019 or newer, you can import them in your project directly from the Package Manager 2.0 interface. 
-
-If you're on Unity 2018, you can find them under the `Samples~/` directory of the package and copy them to your project manually.
+If you're using Unity 2020.2 or newer, you can import them in your project directly from the Package Manager 2.0 interface. 
 
 ## Forking & Contributing
 
