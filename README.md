@@ -1,55 +1,55 @@
-# GameObject Component System (GoCS) for Unity
+# Component Oriented GameObject System (COGS) for Unity
 
-💡 GoCS (pronounced ***go-cee-ess***) is a design pattern for Unity. It's inspired by entity component system (ECS), but it works with the existing Unity GameObject + Component architecture, hence the name. It's also more flexible and less strict than ECS. As such, it's easy to get started using the concepts and API you're already familiar with. 
+💡 COGS (based on GoCs) is a design pattern for Unity. It's inspired by entity component system (ECS), but it works with the existing Unity GameObject + Component architecture, hence the name. It's also more flexible and less strict than ECS. As such, it's easy to get started using the concepts and API you're already familiar with. 
 
-🏁 The goal of GoCS is to help you write code that is readable, reusable and maintanable. It elegantly scales to any project size, from small to big. If you ever found yourself asking "where should I put this code?", then GoCS is here to help.
+🏁 The goal of COGS is to help you write code that is readable, reusable and maintanable. It elegantly scales to any project size, from small to big. If you ever found yourself asking "where should I put this code?", then GoCS is here to help.
 
-🔀 To be clear, GoCS is entirely unrelated to Unity's new [data oriented tech stack (DOTS)](https://unity.com/dots).
+🔀 To be clear, COGS is entirely unrelated to Unity's new [data oriented tech stack (DOTS)](https://unity.com/dots).
 
 🎓 Before you continue, if you're a bit confused with acronyms and concepts like ECS, OOP, IOC or DOTS, you should start with this basic introduction: [Intro: OOP vs ECS in Unity](Documentation~/Manual/Intro.md)
 
-# Why GoCS?
+# Why COGS?
 
-GoCS helps solve some common headaches when developing Unity projects:
+COGS helps solve some common headaches when developing Unity projects:
 
 - You use OOP, but your component inheritance hierarchy quickly becomes messy
 - You use ECS, but you are constantly writing boilerplate code for simple tasks
 - You need an event system, but you're unsure how to implement them properly
 
-In tech lingo, GoCS excels at combining encapsulation, composition and inversion of control.
+In tech lingo, COGS excels at combining encapsulation, composition and inversion of control.
 
-|**Benefit**|**OOP**|**ECS**|**GoCS**|
+|**Benefit**|**OOP**|**ECS**|**COGS**|
 |---|---|---|---|
 |Encapsulation|✅|⛔|✅|
 |Scalability|⛔ (Inheritance)|✅ (Composition)|✅ (Both)|
 |Inversion of Control|⛔|⛔|✅|
 |High Performance|⛔|✅ (DOTS)|⛔|
 
-GoCS is **not** for you if you need the high performance benefits of multi-threading, burst compiling, and memory layouting. For those case, you should use [DOTS](https://unity.com/dots).
+COGS is **not** for you if you need the high performance benefits of multi-threading, burst compiling, and memory layouting. For those case, you should use [DOTS](https://unity.com/dots).
 
 # Getting Started
 
-GoCS is a very lightweight framework imported from the Unity Package Manager.
+COGS is a very lightweight framework imported from the Unity Package Manager.
 
 ### Requirements
 
-GoCS requires **Unity 2018.4** **or newer**.
+COGS requires **Unity 2018.4** **or newer**.
 
 ### Installing
 
-To import GoCS, open `Packages/manifest.json` and add this line under `dependencies`:
+To import COGS, open `Packages/manifest.json` and add this line under `dependencies`:
 
 ```json
-"dev.lazlo.gocs": "https://github.com/lazlo-bonin/gocs.git"
+"https://github.com/walter-haynes/cogs.git"
 ```
 
 ### Updating
 
-To update GoCS, open `Packages/manifest.json` and **remove** the `dev.lazlo.gocs` entry under `lock` at the end of the file.
+To update COGS, open `Packages/manifest.json` and **remove** the `dev.lazlo.gocs` entry under `lock` at the end of the file.
 
 ### Namespace
 
-All the GoCS API is under the `Lazlo.Gocs` namespace:
+All the COGS API is under the `Lazlo.Gocs` namespace:
 
 ```csharp
 using Lazlo.Gocs;
@@ -59,11 +59,11 @@ using Lazlo.Gocs;
 
 GoCS is shared under the **MIT License**. This means you're free to use and redistribute it in your games and other projects, even commercially. For the full license, see [LICENSE.md](LICENSE.md).
 
-# GoCS in a nutshell
+# COGS in a nutshell
 
-GoCS is designed to be simple to implement. Once you wrap your head around the core concepts below, you should be able to start using it with only the basics of C# and Unity. 
+COGS is designed to be simple to implement. Once you wrap your head around the core concepts below, you should be able to start using it with only the basics of C# and Unity. 
 
-GoCS is **similar** to traditional ECS: it's organized as **E**ntities, **C**omponents and **S**ystems.
+COGS is **similar** to traditional ECS: it's organized as **E**ntities, **C**omponents and **S**ystems.
 
 |**Concept**|**Purpose**|**Related API**|
 |---|---|---|
@@ -71,7 +71,7 @@ GoCS is **similar** to traditional ECS: it's organized as **E**ntities, **C**omp
 |🧩 Components|Define data for runtime and authoring for the editor|`IComponent` + `BaseComponent`
 |⚙️ Systems|Perform common logic on batches of components|`BaseSystem`
 
-GoCS is **different** from traditional ECS in two ways:
+COGS is **different** from traditional ECS in two ways:
 
 1. Components are separated in two layers: the **Interface** and the **Class(es)**. Systems only operate on component interfaces. But component classes can add extra logic, data, attributes or even inheritance and couplings if they need to. (Don't worry if that sounds abstract for now, it'll become clearer with examples!)
 2. Systems are in charge of event dispatch. In other words, they decide when to send events back to the components. This is what's called **"inversion of control"**: your components don't need to handle their own event *conditions*, they only need to handle their event *reactions*.
@@ -316,7 +316,7 @@ public class InteractionSystem : BaseSystem
 
 ## 4. (Optional) Base Component Class
 
-Because GoCS allows inheritance in component classes, you can reduce the amount of boilerplate even further.
+Because COGS allows inheritance in component classes, you can reduce the amount of boilerplate even further.
 
 For example, you could create a `BaseInteractable` class from which `Grabbable` and `Highlightable` inherit.
 
@@ -390,7 +390,7 @@ Neat! ✨
 
 In ECS patterns, you'll typically want systems to operate on GameObjects that share a set of components. 
 
-GoCS provides helpers to make that easy. These helpers use `out` parameters and the [tuple deconstruction syntax](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct) to keep the code readable.
+COGS provides helpers to make that easy. These helpers use `out` parameters and the [tuple deconstruction syntax](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct) to keep the code readable.
 
 For the following examples, we'll pretend we want a health regeneration system that slowly regens the health of game objects that have both `IHealth` and `IRegenable` components attached.
 
@@ -501,7 +501,7 @@ You can also use multiple SystemComponents in a single system if you need to.
 
 ### Performance Comparison
 
-GoCS includes a benchmark of the different query methods in the samples. This benchmark tests a two-component query over **10,000 game objects** at every frame.
+COGS includes a benchmark of the different query methods in the samples. This benchmark tests a two-component query over **10,000 game objects** at every frame.
 
 |Method|API|Time (lower is better)|Allocation (lower is better)|
 |---|---|---|---|
@@ -554,7 +554,7 @@ class ZoneSystem : BaseSystem
 
 ## Event Arguments
 
-If you need to pass in arguments to GoCS events, you can use the generic version of Event.
+If you need to pass in arguments to COGS events, you can use the generic version of Event.
 
 For example, if you need an damage event that passes the amount of damage, you could write:
 
@@ -630,7 +630,7 @@ interface IDamageable : IComponent
 
 Events can have zero, one or multiple handlers.
 
-Unlike C# events, GoCS events can be triggered from outside their parent class. This is the trick that lets systems manage the event dispatch.
+Unlike C# events, COGS events can be triggered from outside their parent class. This is the trick that lets systems manage the event dispatch.
 
 There are two styles you can use to declare events. These two styles are functionally identical. It's just a matter of preference!
 
@@ -676,7 +676,7 @@ class Destructible : BaseComponent
 
 ### Null Events
 
-By convention, GoCS allows event properties to stay null (uninitialized) if your doesn't need them. To avoid errors, your systems should therefore always use the null-coalesce operator `?.` before invoking events:
+By convention, COGS allows event properties to stay null (uninitialized) if your doesn't need them. To avoid errors, your systems should therefore always use the null-coalesce operator `?.` before invoking events:
 
 ```csharp
 destructible.onDestroy?.Invoke();
@@ -716,9 +716,9 @@ Unity's event system is limited because it does not allow external objects to ad
 
 For example, you cannot listen to a collider's `OnCollisionEnter` event unless you create a MonoBehaviour script on the *same* GameObject.
 
-This is problematic for GoCS, because your Systems don't live on the same GameObject as your Components, and yet they are responsible for event dispatch!
+This is problematic for COGS, because your Systems don't live on the same GameObject as your Components, and yet they are responsible for event dispatch!
 
-To fix that issue, GoCS introduces something called event **proxies**. Proxies are small components packaged with GoCS that just forward the built-in Unity messages like  `OnCollisionEnter`, `OnTriggerEnter`, `OnTransformParentChanged`, etc. to normal GoCS events that we can then use in our systems.
+To fix that issue, COGS introduces something called event **proxies**. Proxies are small components packaged with GoCS that just forward the built-in Unity messages like  `OnCollisionEnter`, `OnTriggerEnter`, `OnTransformParentChanged`, etc. to normal GoCS events that we can then use in our systems.
 
 For example, here is how the collision proxy is implemented behind the scenes:
 
@@ -874,17 +874,17 @@ class DestructionSystem : BaseSystem
 
 ## Custom Base Classes
 
-GoCS come packaged with `BaseComponent` and `BaseSystem` base classes to get you started quickly.
+COGS come packaged with `BaseComponent` and `BaseSystem` base classes to get you started quickly.
 
 Both of these classes are derived from `MonoBehaviour`.
 
-However, if you need your components or systems to derive from other root classes, you don't have to use those provided by GoCS. You only have to implement the `IComponent` and `ISystem` interfaces. The API provides a `BaseImplementation` static helper class that makes this process easy and future-proof.
+However, if you need your components or systems to derive from other root classes, you don't have to use those provided by COGS. You only have to implement the `IComponent` and `ISystem` interfaces. The API provides a `BaseImplementation` static helper class that makes this process easy and future-proof.
 
 ### Custom Base Component
 
 Let's say you are making an online game with UNET and thus need to use `NetworkBehaviour` instead of MonoBehaviour as your base component type.
 
-To make it GoCS-compatible, you could create your own `BaseNetworkComponent` class:
+To make it COGS-compatible, you could create your own `BaseNetworkComponent` class:
 
 ```csharp
 // Derive from NetworkBehaviour and implement IComponent
@@ -948,15 +948,15 @@ public abstract class MyBaseSystem: ISystem, IWorldCallbackReceiver
 
 ---
 
-## Mixing GoCS with OOP
+## Mixing COGS with OOP
 
-It's perfectly fine to mix GoCS with OOP. In fact, that's one of its main benefits! You should think of GoCS as just another tool in your development toolbox, not as a pattern you *have* to use everywhere.
+It's perfectly fine to mix COGS with OOP. In fact, that's one of its main benefits! You should think of COGS as just another tool in your development toolbox, not as a pattern you *have* to use everywhere.
 
 For example, if you have a player controller class that works well as a self-contained, encapsulated object, then you should keep it that way. No need to split it into entities, components and systems unless it makes sense to you. As the saying goes, *if it ain't broke, don't fix it*.
 
-Likewise, if you use an entire other architectural pattern for other parts of your codebase, for example model-view-component (MVC) for your GUI code, you don't need to convert that. GoCS can happily coexist in parallel of all your existing codebase.
+Likewise, if you use an entire other architectural pattern for other parts of your codebase, for example model-view-component (MVC) for your GUI code, you don't need to convert that. COGS can happily coexist in parallel of all your existing codebase.
 
-GoCS is also designed to let you progressively add it to an existing OOP architecture.
+COGS is also designed to let you progressively add it to an existing OOP architecture.
 
 There's no downside and very minimal overhead to having every component in your project derive from BaseComponent, even if you don't use Systems with them. But if for whatever reason you don't want all your components to derive from IComponent, you could create a more flexible base component class that will only use GoCS on derived classes that implement IComponent. This way, you can reuse it as a common base for classes that are GoCS-aware and classes that aren't. For example:
 
@@ -1000,7 +1000,7 @@ public abstract class MyBaseComponent: MonoBehaviour
 }
 ```
 
-You can then start adding GoCS at any level in your inheritance hierarchy.
+You can then start adding COGS at any level in your inheritance hierarchy.
 
 Let's say you have the following inheritance hierarchy:
 
@@ -1024,7 +1024,7 @@ All NPC would have to implement is the members needed by the IInteractable compo
 
 ## More Examples
 
-The GoCS package comes bundled with optional commented examples.
+The COGS package comes bundled with optional commented examples.
 
 If you're using Unity 2019 or newer, you can import them in your project directly from the Package Manager 2.0 interface. 
 
@@ -1040,7 +1040,7 @@ See: [API Reference](./Documentation~/API/Lazlo-Gocs.md)
 
 ## Development Status
 
-GoCS is not yet guaranteed to be production ready. There may be breaking API changes in the future. In that case, since GoCS uses [Semantic Versioning](https://semver.org), a new major version number will be used. 
+COGS is not yet guaranteed to be production ready. There may be breaking API changes in the future. In that case, since COGS uses [Semantic Versioning](https://semver.org), a new major version number will be used. 
 
 I'm open to suggestions and appreciate bug reports. If you have any, just create a new issue on Github!
 
