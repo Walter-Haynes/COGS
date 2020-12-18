@@ -1,33 +1,37 @@
 {
-    "name": "dev.lazlo.gocs",
-    "version": "2.0.0",
-    "displayName": "GoCS",
-    "description": "GameObject Component System for Unity.",
-    "unity": "2018.4",
+    "name": "com.commongames.systems.cogs",
+    "version": "3.0.0",
+    "displayName": "COGS",
+    "description": "GameObject Oriented Component System for Unity.",
+    "unity": "2020.2",
     "dependencies": { },
     "keywords": [
+        "cogs"
         "gocs",
         "ecs",
         "ioc",
         "oop",
+        "cgtk",
+        "system",
+        "design",
         "pattern",
         "framework",
         "events"
     ],
     "author": {
-        "name": "Lazlo Bonin",
+        "name": "Lazlo Bonin and Common-Games",
         "email": "hello@lazlo.dev",
         "url": "https://lazlo.dev"
     },
     "samples": [
         {
             "displayName": "Interaction",
-            "description": "Use GOCS to handle hovering and clicking interactable objects.",
+            "description": "Use COGS to handle hovering and clicking interactable objects.",
             "path": "Samples~/Interaction"
         },
         {
             "displayName": "Zones",
-            "description": "Use GOCS to handle entering and exiting zones.",
+            "description": "Use COGS to handle entering and exiting zones.",
             "path": "Samples~/Zones"
         },
         {
